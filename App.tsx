@@ -2,32 +2,12 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import { View, Text } from 'react-native';
+import HomeScreen from "./screens/HomeScreen";
+import MoviesScreen from "./screens/MoviesScreen";
+import ContactScreen from "./screens/ContactScreen";
 
 const Tab = createBottomTabNavigator();
 
-const HomeScreen = () => {
-    return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Home Screen</Text>
-        </View>
-    );
-};
-
-const MoviesScreen = () => {
-    return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Movies Screen</Text>
-        </View>
-    );
-};
-
-const ContactScreen = () => {
-    return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Contact Screen</Text>
-        </View>
-    );
-};
 
 const App = () => {
     return (
