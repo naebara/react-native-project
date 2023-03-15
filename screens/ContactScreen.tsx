@@ -1,10 +1,13 @@
 import {Text, View} from "react-native";
-import React from "react";
+import React, {useContext} from "react";
+import {ContactContext, ContactProvider} from "../context/ContactContext";
 const ContactScreen = () => {
+    const {contactInfo, setContactInfo} = useContext(ContactContext);
     return (
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-            <Text>Contact Screen</Text>
-        </View>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                <Text>{contactInfo.toString()}</Text>
+            </View>
+
     );
 };
 
