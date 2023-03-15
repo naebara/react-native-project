@@ -1,98 +1,119 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, Linking } from 'react-native';
-import { Link, RouteProp, useRoute } from '@react-navigation/native';
-import { IMovie } from '../types/movieType';
-import { Ionicons } from '@expo/vector-icons';
+import React from "react";
+import {
+  View,
+  Text,
+  StyleSheet,
+  FlatList,
+  Dimensions,
+  Image,
+} from "react-native";
+import { Link, RouteProp, useRoute } from "@react-navigation/native";
+import { IMovie } from "../types/movieType";
+import { Ionicons } from "@expo/vector-icons";
 
-type MovieScreenRouteProp = RouteProp<{ Movie: { movie: IMovie } }, 'Movie'>;
+type MovieScreenRouteProp = RouteProp<{ Movie: { movie: IMovie } }, "Movie">;
 
 const MovieScreen = () => {
   const route = useRoute<MovieScreenRouteProp>();
   const { movie } = route.params;
-
-  const handleIMDBPress = () => {
-    Linking.openURL(movie.imdb_url);
-  };
-
-  const ratingStars = Array(Math.round(movie.rating)).fill('star');
-
-  const displayImage = () => {
-    if (movie.image.startsWith('http') || movie.image.startsWith('www')) {
-      return <Image source={{ uri: movie.image }} style={styles.image} />;
-    } else {
-      return (
-        <View style={styles.iconContainer}>
-          <Ionicons name="image-outline" size={80} color="black" />
-        </View>
-      );
-    }
-  };
-
+  const { width } = Dimensions.get("window");
+  const height = Math.round(width * 1.2);
   return (
-    <View style={styles.container}>
-      <View style={styles.imageContainer}>{displayImage()}</View>
-      <View style={styles.infoContainer}>
-        <View>
-          <Text style={styles.title}>{movie.movie}</Text>
-          <Text style={styles.ratingText}>
-            Rating: {movie.rating} {ratingStars.map((star, index) => <Ionicons key={index} name="star" size={18} color="#FFB900" />)}
-          </Text>
-        </View>
-        <TouchableOpacity style={styles.imdbButton} onPress={handleIMDBPress}>
-          <Text style={styles.imdbButtonText}>IMDB</Text>
-        </TouchableOpacity>
+    <>
+      <View style={styles.container1}>
+        <FlatList
+          data={movie.Images}
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          keyExtractor={(item) => item}
+          renderItem={({ item }) => (
+            <Image
+              source={{ uri: item }}
+              style={{ ...styles.image, width, height }}
+              resizeMode="cover"
+            />
+          )}
+        />
       </View>
-    </View>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Text style={styles.title}>{movie.Title}</Text>
+          <Text style={styles.year}>{movie.Year}</Text>
+        </View>
+        <View style={styles.content}>
+          <Text style={styles.label}>Genre:</Text>
+          <Text style={styles.value}>{movie.Genre}</Text>
+          <Text style={styles.label}>Plot:</Text>
+          <Text style={styles.value}>{movie.Plot}</Text>
+          <View style={styles.ratingContainer}>
+            <Ionicons name="md-star" size={28} color="gold" />
+            <Text style={styles.rating}>{movie.imdbRating}</Text>
+          </View>
+        </View>
+      </View>
+    </>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
-  imageContainer: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+  container1: {
+    backgroundColor: "#FFF",
+    marginBottom: 8,
+    overflow: "hidden",
   },
   image: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'contain',
+    marginRight: 16,
   },
-  infoContainer: {
-    flex: 1,
-    padding: 20,
-    justifyContent: 'space-between',
+  container: {
+    pozition: "absolute",
+    top: -70,
+    backgroundColor: "#FFF",
+    borderRadius: 8,
+    margin: 16,
+    padding: 16,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  header: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 16,
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 10,
+    fontWeight: "bold",
   },
-  ratingText: {
+  year: {
     fontSize: 18,
-    flexDirection: 'row',
-    alignItems: 'center',
+    color: "#666",
+    alignSelf: "flex-end",
   },
-  imdbButton: {
-    backgroundColor: '#0077FF',
-    borderRadius: 10,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    alignItems: 'center',
+  content: {
+    marginBottom: 16,
   },
-  imdbButtonText: {
-    color: '#fff',
-    fontSize: 18,
+  label: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 4,
   },
-  iconContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: "100%",
-    height: 300,
-    backgroundColor: '#eee',
+  value: {
+    fontSize: 16,
+    marginBottom: 8,
+  },
+  ratingContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  rating: {
+    fontSize: 24,
+    fontWeight: "bold",
+    marginLeft: 8,
   },
 });
 

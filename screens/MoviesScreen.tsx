@@ -1,29 +1,47 @@
-import React from 'react';
-import { Text, View, TouchableOpacity, StyleSheet, FlatList, Image } from 'react-native';
-import { useMovies } from '../hooks/movies/useMovies';
-import { useNavigation } from '@react-navigation/native';
-import { IMovie } from '../types/movieType';
+import React from "react";
+import {
+  Text,
+  View,
+  TouchableOpacity,
+  StyleSheet,
+  FlatList,
+  Image,
+  Dimensions,
+} from "react-native";
+import { useMovies } from "../hooks/movies/useMovies";
+import { useNavigation } from "@react-navigation/native";
+import { IMovie } from "../types/movieType";
+
+const { width } = Dimensions.get("window");
+const ITEM_WIDTH = width - 40;
+const ITEM_HEIGHT = ITEM_WIDTH / 3;
 
 const MoviesScreen = () => {
   const { movies, isLoading, isError } = useMovies();
   const navigation = useNavigation();
 
   const handleMoviePress = (movie: IMovie) => {
-    navigation.navigate('Movie', { movie });
+    navigation.navigate("Movie", { movie });
   };
 
   const renderItem = ({ item }: { item: IMovie }) => {
     return (
-      <TouchableOpacity style={styles.movieContainer} onPress={() => handleMoviePress(item)}>
+      <TouchableOpacity
+        style={styles.movieContainer}
+        onPress={() => handleMoviePress(item)}
+      >
         <View style={styles.imageContainer}>
-          {item.image.startsWith('http') || item.image.startsWith('https') || item.image.startsWith('www') ?
-            <Image source={{ uri: item.image }} style={styles.image} /> :
-            <Text style={styles.icon}>No Image</Text>
-          }
+          <Image
+            source={{ uri: item.Images[0] }}
+            style={styles.image}
+            resizeMode="cover"
+          />
         </View>
         <View style={styles.infoContainer}>
-          <Text style={styles.title}>{item.movie}</Text>
-          <Text style={styles.rating}>Rating: {item.rating} ⭐️</Text>
+          <Text style={styles.title}>{item.Title}</Text>
+          <View style={styles.ratingContainer}>
+            <Text style={styles.rating}>{item.imdbRating} ⭐️</Text>
+          </View>
         </View>
       </TouchableOpacity>
     );
@@ -32,78 +50,81 @@ const MoviesScreen = () => {
   return (
     <View style={styles.container}>
       {isLoading && <Text style={styles.message}>Loading...</Text>}
-      {isError && <Text style={styles.message}>An error occurred. Please try again later.</Text>}
-      {!isLoading && movies &&
+      {isError && (
+        <Text style={styles.message}>
+          An error occurred. Please try again later.
+        </Text>
+      )}
+      {!isLoading && movies && (
         <FlatList
           data={movies}
           renderItem={renderItem}
-          keyExtractor={(item) => item.id.toString()}
+          keyExtractor={(item) => item.Title + item.Year}
           style={styles.list}
         />
-      }
+      )}
     </View>
   );
 };
 
 MoviesScreen.navigationOptions = {
-    headerShown: false,
-  };
+  headerShown: false,
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  heading: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginVertical: 20,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
   },
   message: {
     fontSize: 18,
     marginBottom: 20,
   },
   list: {
-    width: '100%',
+    width: "100%",
     paddingHorizontal: 20,
   },
   movieContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     marginVertical: 10,
-    padding: 10,
-    backgroundColor: '#F0F0F0',
+    backgroundColor: "#F0F0F0",
     borderRadius: 10,
+    overflow: "hidden",
+    width: ITEM_WIDTH,
+    height: ITEM_HEIGHT,
   },
   imageContainer: {
-    width: 100,
-    height: 150,
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: ITEM_WIDTH * 0.4,
+    height: ITEM_HEIGHT,
+    alignItems: "center",
+    justifyContent: "center",
     marginRight: 20,
   },
   image: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
-  },
-  icon: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    color: '#A0A0A0',
+    width: "100%",
+    height: "100%",
   },
   infoContainer: {
     flex: 1,
+    padding: 10,
   },
   title: {
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 5,
+  },
+  ratingContainer: {
+    alignItems: "flex-end",
+    justifyContent: "flex-end",
+    flex: 1,
   },
   rating: {
     fontSize: 16,
+    fontWeight: "bold",
+    color: "#A0A0A0",
   },
 });
 

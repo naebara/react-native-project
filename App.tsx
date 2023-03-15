@@ -1,20 +1,29 @@
-import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { Ionicons } from '@expo/vector-icons';
-import HomeScreen from './screens/HomeScreen';
-import MoviesStack from './screens/MoviesStack';
-import ContactScreen from './screens/ContactScreen';
+import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Ionicons } from "@expo/vector-icons";
+import HomeScreen from "./screens/HomeScreen";
+import MoviesStack from "./screens/MoviesStack";
+import ContactScreen from "./screens/ContactScreen";
+import { StatusBar } from "react-native";
+import { createStackNavigator } from "@react-navigation/stack";
 
 const Tab = createBottomTabNavigator();
 
 const App = () => {
+  const statusBarHeight = StatusBar.currentHeight;
+
   return (
     <NavigationContainer>
       <Tab.Navigator
+        screenOptions={{
+          headerStyle: {
+            height: statusBarHeight,
+          },
+        }}
         tabBarOptions={{
-          activeTintColor: '#ff6347',
-          inactiveTintColor: 'gray',
+          activeTintColor: "#ff6347",
+          inactiveTintColor: "gray",
         }}
       >
         <Tab.Screen
@@ -23,7 +32,7 @@ const App = () => {
           options={{
             tabBarIcon: ({ focused, color, size }) => (
               <Ionicons
-                name={focused ? 'home' : 'home-outline'}
+                name={focused ? "home" : "home-outline"}
                 size={size}
                 color={color}
               />
@@ -34,9 +43,10 @@ const App = () => {
           name="Movies"
           component={MoviesStack}
           options={{
+            headerShown: false,
             tabBarIcon: ({ focused, color, size }) => (
               <Ionicons
-                name={focused ? 'film' : 'film-outline'}
+                name={focused ? "film" : "film-outline"}
                 size={size}
                 color={color}
               />
@@ -49,16 +59,16 @@ const App = () => {
           options={{
             tabBarIcon: ({ focused, color, size }) => (
               <Ionicons
-                name={focused ? 'chatbubbles' : 'chatbubbles-outline'}
+                name={focused ? "chatbubbles" : "chatbubbles-outline"}
                 size={size}
                 color={color}
               />
             ),
           }}
-          />
-          </Tab.Navigator>
-        </NavigationContainer>
-      );
-    };
-    
-    export default App;
+        />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+};
+
+export default App;
