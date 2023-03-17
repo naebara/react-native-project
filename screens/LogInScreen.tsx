@@ -1,21 +1,46 @@
-import React, { useState } from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
+  Animated
 } from "react-native";
 import { useDispatch } from "react-redux";
 import { logIn } from "../store/authentication";
 import { setEmail, setPass } from "../store/user";
 import { useDataSelector } from "../hooks/useDataSelector";
 
+
 export default function LoginScreen() {
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   const data = useDataSelector();
+
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const fadeIn = () => {
+    Animated.timing(fadeAnim, {
+      toValue: 1,
+      duration: 3000,
+      useNativeDriver: true,
+    }).start();
+  };
+
+
+
+  const fadeOut = () => {
+    Animated.timing(fadeAnim, {
+      toValue: 0,
+      duration: 3000,
+      useNativeDriver: true,
+    }).start();
+  };
+
+  useEffect(() => {
+    setTimeout(() => fadeIn(), 500);
+  }, []);
 
   const handleLogin = () => {
     dispatch(setEmail(mail));
@@ -34,7 +59,7 @@ export default function LoginScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Log In</Text>
+
       <TextInput
         style={styles.input}
         placeholder="Email"
@@ -48,9 +73,19 @@ export default function LoginScreen() {
         value={password}
         onChangeText={setPassword}
       />
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Log In</Text>
-      </TouchableOpacity>
+      <Animated.View
+          style={[
+            styles.fadingContainer,
+            {
+              // Bind opacity to animated value
+              opacity: fadeAnim,
+            },
+            { width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }
+          ]}>
+        <TouchableOpacity style={styles.button} onPress={handleLogin}>
+          <Text style={styles.buttonText}>Log In</Text>
+        </TouchableOpacity>
+      </Animated.View>
     </View>
   );
 }
