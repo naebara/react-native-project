@@ -10,8 +10,3 @@ export const getMovies = async () => {
   const { data } = await axiosInstance.get<IMovie[]>("");
   return data;
 };
-
-// export const getMovieById = async (id: number) => {
-//   const { data } = await axiosInstance.get<IMovie>(`/movies/${id}`);
-//   return data;
-// };
