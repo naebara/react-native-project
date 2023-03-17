@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -6,9 +6,8 @@ import {
   Image,
   FlatList,
   Dimensions,
-  TextInput,
-  Keyboard,
 } from "react-native";
+import SearchBar from "../components/SearchBar";
 import { useMovies } from "../hooks/movies/useMovies";
 import { IMovie } from "../types/movieType";
 
@@ -39,57 +38,49 @@ export default function HomeScreen() {
     );
   };
 
-  const filteredMovies = movies.filter((movie) =>
-    movie.Title.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  const handleSearch = (text: string) => {
-    setSearchQuery(text);
+  const filterMovies = (movies: IMovie[], searchQuery: string) => {
+    return movies.filter((movie) => {
+      return movie.Title.toLowerCase().includes(searchQuery.toLowerCase());
+    });
   };
 
+  const filteredMovies = filterMovies(movies ?? [], searchQuery);
+
   return (
-    <View style={styles.container}>
-      <TextInput
-        style={styles.searchBar}
-        placeholder="Search for a movie..."
-        onChangeText={handleSearch}
-        value={searchQuery}
-        onSubmitEditing={Keyboard.dismiss}
-      />
-      {isLoading && <Text>Loading...</Text>}
-      {isError && <Text>An error occurred. Please try again later.</Text>}
-      {!isLoading && filteredMovies && (
-        <FlatList
-          data={filteredMovies}
-          renderItem={renderMovie}
-          keyExtractor={(item) => item.imdbID}
-          numColumns={NUM_COLUMNS}
-          contentContainerStyle={styles.contentContainer}
-        />
-      )}
-    </View>
+    <>
+      <View style={styles.container}>
+        {isLoading && <Text>Loading...</Text>}
+        {isError && <Text>An error occurred. Please try again later.</Text>}
+        {!isLoading && filteredMovies && (
+          <>
+            <SearchBar
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+            />
+            <FlatList
+              data={filteredMovies}
+              renderItem={renderMovie}
+              keyExtractor={(item) => item.imdbID}
+              numColumns={NUM_COLUMNS}
+              contentContainerStyle={styles.contentContainer}
+            />
+          </>
+        )}
+      </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: "center",
     justifyContent: "center",
   },
   contentContainer: {
     alignItems: "flex-start",
     paddingBottom: ITEM_MARGIN,
   },
-  searchBar: {
-    width: "90%",
-    height: 40,
-    borderWidth: 1,
-    borderColor: "#ddd",
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    marginBottom: 10,
-  },
+
   movieContainer: {
     width: ITEM_WIDTH,
     margin: ITEM_MARGIN,
@@ -118,6 +109,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
+
   title: {
     fontSize: 20,
 
@@ -131,5 +123,24 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginBottom: 2,
     color: "#fff", // add color property
+  },
+  searchBarContainer: {
+    width: "100%",
+    backgroundColor: "#fff",
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderBottomWidth: 1,
+    borderBottomColor: "#ddd",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  searchBar: {
+    flex: 1,
+    height: 40,
+    backgroundColor: "#eee",
+    borderRadius: 5,
+    paddingHorizontal: 10,
+    marginRight: 10,
   },
 });
