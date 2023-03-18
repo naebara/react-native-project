@@ -1,3 +1,9 @@
+/**
+ * Acest fișier exportă o componentă funcțională numită LoginScreen, care permite utilizatorului să introducă adresa de email și parola pentru autentificarea în aplicație.
+ * Componenta utilizează hook-urile useState, useRef, useEffect și useDispatch din React și utilizează obiectele TextInput și TouchableOpacity pentru intrarea de date și pentru butonul de autentificare.
+ * De asemenea, componenta folosește hook-ul useDataSelector și acțiunile setEmail, setPass și logIn din Redux pentru a gestiona autentificarea utilizatorului și a oferi feedback vizual prin intermediul unei animații.
+ */
+
 import React, {useEffect, useRef, useState} from "react";
 import {
   StyleSheet,
@@ -23,16 +29,6 @@ export default function LoginScreen() {
   const fadeIn = () => {
     Animated.timing(fadeAnim, {
       toValue: 1,
-      duration: 3000,
-      useNativeDriver: true,
-    }).start();
-  };
-
-
-
-  const fadeOut = () => {
-    Animated.timing(fadeAnim, {
-      toValue: 0,
       duration: 3000,
       useNativeDriver: true,
     }).start();

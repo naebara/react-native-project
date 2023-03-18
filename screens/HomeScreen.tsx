@@ -1,3 +1,7 @@
+
+// Acest fișier conține codul sursă pentru componenta HomeScreen, care afișează o listă de filme și permite utilizatorului să caute filme după titlu.
+// Se utilizează componente precum SearchBar și FlatList pentru a afișa și filtra lista de filme, iar se utilizează hook-ul useMovies pentru a obține datele despre filme.
+// Acest fișier reprezintă un exemplu de implementare a unei interfețe grafice pentru afișarea și căutarea de informații despre filme în aplicații mobile.
 import React, { useState } from "react";
 import {
   StyleSheet,

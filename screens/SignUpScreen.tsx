@@ -1,3 +1,13 @@
+/**
+ * Acesta este un ecran de înregistrare a utilizatorului (Sign Up Screen) în React Native.
+ * Componenta definește patru câmpuri de introducere a datelor pentru nume, e-mail, parolă și confirmare de parolă,
+ * și un buton pentru a trimite datele de înregistrare. Când utilizatorul introduce date noi în câmpuri,
+ * acestea sunt stocate în variabile de stare și actualizate prin intermediul funcției useState().
+ * Funcția handleSignUp() este apelată când utilizatorul apasă butonul "Sign Up" și ar trebui să trimită datele
+ * de înregistrare către server. Stilurile pentru ecran și pentru fiecare element din formular sunt definite în obiectul
+ * styles prin intermediul funcției StyleSheet.create().
+ */
+
 import React, { useState } from "react";
 import {
   StyleSheet,

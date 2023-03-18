@@ -1,3 +1,11 @@
+
+/**
+ * Acest fișier exportă o componentă funcțională numită MovieScreen, care afișează detalii despre un singur film
+ * utilizând informațiile primite prin intermediul rutei și a obiectului IMovie. Componenta utilizează un obiect FlatList
+ * pentru a afișa imagini orizontale ale filmului și apoi afișează informațiile de titlu, an, gen, plot și imdbRating într-un format
+ * detaliat. Opțiunea headerShown este setată la false în cadrul componentei pentru a ascunde bara de navigare.
+ */
+
 import React from "react";
 import {
   View,

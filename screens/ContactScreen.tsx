@@ -1,3 +1,7 @@
+// Acest fisier definesc un ecran de contact care utilizeaza un context ContactContext pentru a afisa informatii despre utilizatorii disponibili.
+// ContactScreen utilizeaza useContext hook pentru a accesa contactInfo, o lista de obiecte ContactInfo din ContactContext.
+// Lista este apoi afisata utilizand React Native Elements Card component pentru fiecare obiect ContactInfo.
+
 import {Text, View} from "react-native";
 import React, {useContext} from "react";
 import {ContactContext, ContactInfo, ContactProvider} from "../context/ContactContext";

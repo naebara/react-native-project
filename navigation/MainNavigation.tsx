@@ -1,3 +1,13 @@
+/*
+* Acest cod reprezintă componenta principală a navigației aplicației. Folosește o bară de navigație în partea de jos a ecranului, care permite accesul la diferite pagini ale aplicației prin intermediul unor butoane. Aceste butoane sunt reprezentate de instanțe ale componentei create cu createBottomTabNavigator și sunt adăugate într-un Tab.Navigator.
+
+Componenta Tab.Navigator definește opțiunile și ecranele disponibile pentru navigare. Fiecare tab conține un Tab.Screen care definește ecranul și opțiunile asociate cu acesta, cum ar fi iconița și numele afișat pe butonul de navigare.
+
+În plus, componenta MainNavigation încapsulează în sine toate ecranele aplicației și oferă un NavigationContainer pentru a ajuta la gestionarea stării de navigare a aplicației. De asemenea, include și StatusBar.currentHeight pentru a ajusta înălțimea barei de navigare în funcție de înălțimea status bar-ului din dispozitiv.
+*
+* */
+
+
 import React from "react";
 import { StatusBar } from "react-native";
 import { ContactProvider } from "../context/ContactContext";

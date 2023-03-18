@@ -1,3 +1,12 @@
+/**
+ * Acest fișier exportă o componentă funcțională numită MoviesScreen, care afișează o listă de filme utilizând
+ * obiectul FlatList din React Native. Componenta utilizează hook-ul personalizat useMovies() pentru a obține lista de filme
+ * și informațiile de stare asociate cu aceasta (isLoading și isError). Funcția handleMoviePress() este apelată când un utilizator
+ * apasă pe o carte de film din listă, navigând utilizatorul la ecranul detaliilor filmului. Opțiunea headerShown este setată la
+ * false pentru a ascunde bara de navigare în ecranul de listă de filme.
+ */
+
+
 import React from "react";
 import {
   Text,

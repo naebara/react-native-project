@@ -1,3 +1,8 @@
+/*
+* Acest cod definește un context pentru informațiile de contact ale utilizatorilor, împreună cu un furnizor care returnează aceste informații și le face disponibile în întreaga aplicație.
+Furnizorul efectuează o cerere către un API pentru a obține informațiile de contact ale utilizatorilor și le stochează într-un state.
+Contextul ContactProvider este încărcat la nivelul părintelui din ierarhia componentelor React și poate fi accesat de copii acestuia, folosind hook-ul useContext.*/
+
 import React, {useEffect, useState} from "react";
 
 const ContactContext = React.createContext();

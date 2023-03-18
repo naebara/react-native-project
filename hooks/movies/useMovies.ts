@@ -1,3 +1,9 @@
+/*
+  * Acesta este un hook React personalizat numit useMovies care este folosit pentru a obține o listă de filme folosind un serviciu numit getMovies.
+  Hook-ul întoarce trei variabile: movies, isLoading, și isError, care sunt utilizate pentru a gestiona starea de încărcare și eventualele erori ce pot apărea în timpul obținerii listei de filme.
+  Funcția useEffect este folosită pentru a face un apel către serviciul getMovies în momentul încărcării
+  * componentei și de a actualiza starea movies cu lista de filme întoarsă de serviciu.
+* */
 import { useEffect, useState } from "react";
 import { getMovies } from "../../services/moviesService";
 import { IMovie } from "../../types/movieType";
