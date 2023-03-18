@@ -1,3 +1,8 @@
+/*Acest cod definește o funcție numită getMovies care folosește biblioteca Axios pentru a face o cerere GET la o adresă U
+RL care conține informații despre filme sub forma unui fișier JSON. În cadrul acestei cereri, este utilizat un
+obiect Axios pentru a seta adresa de bază a URL-ului și a face apoi cererea la adresa specificată.
+Funcția returnează datele despre filme sub forma unui vector de obiecte de tipul IMovie.*/
+
 import axios from "axios";
 import { IMovie } from "../types/movieType";
 

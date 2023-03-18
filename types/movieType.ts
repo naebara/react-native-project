@@ -1,3 +1,5 @@
+// Structura unui film cu datele proprii.
+
 export interface IMovie {
   Title: string;
   Year: string;
